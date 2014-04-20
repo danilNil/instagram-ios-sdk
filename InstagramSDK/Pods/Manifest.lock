@@ -1,0 +1,22 @@
+PODS:
+  - Kiwi/ARC (2.2.4)
+  - Kiwi/NonARC (2.2.4)
+  - Kiwi/XCTest (2.2.4):
+    - Kiwi/ARC
+    - Kiwi/NonARC
+  - Nocilla (0.8.1)
+  - Typhoon (HEAD based on 1.8.2):
+    - Typhoon/no-arc
+  - Typhoon/no-arc (HEAD based on 1.8.2)
+
+DEPENDENCIES:
+  - Kiwi/XCTest
+  - Nocilla
+  - Typhoon (HEAD)
+
+SPEC CHECKSUMS:
+  Kiwi: d60d7498b640a16f58b01925fc3c8d7c4d809f66
+  Nocilla: 0c8075046df476b1bc6482caa7f6a69db1a9b277
+  Typhoon: fba1b1978289e4a9f8662ae0e3a5ddbb0538e2be
+
+COCOAPODS: 0.32.1
