@@ -6,29 +6,34 @@
 //  Copyright (c) 2014 Danil. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+#import "InstagramSDK.h"
+#import "Kiwi.h"
 
-@interface InstagramSDKTests : XCTestCase
+SPEC_BEGIN(InstagramSDKSpec)
 
-@end
+        describe(@"InstagramSDK", ^{
 
-@implementation InstagramSDKTests
+            __block InstagramSDK *sut; //‘system under test’
 
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
+            beforeEach(^{
 
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
+                sut = [[InstagramSDK alloc] init];
 
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-}
+            });
 
-@end
+            afterEach(^{
+
+                sut = nil;
+
+            });
+
+            it(@"should exist", ^{
+
+                [sut shouldNotBeNil];
+
+            });
+
+
+        });
+
+SPEC_END
