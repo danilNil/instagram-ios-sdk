@@ -10,4 +10,7 @@
 
 @interface InstagramSDK : NSObject
 
+@property (nonatomic, strong, readonly) NSString *token;
+
+- (void)login;
 @end

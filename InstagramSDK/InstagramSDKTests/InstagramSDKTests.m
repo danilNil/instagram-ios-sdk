@@ -33,6 +33,10 @@ SPEC_BEGIN(InstagramSDKSpec)
 
             });
 
+            it(@"should authorize user", ^{
+                [sut login];
+                [[sut.token shouldEventually] beNonNil];
+            });
 
         });
 
