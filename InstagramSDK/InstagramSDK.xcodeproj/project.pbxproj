@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5AEF062418C72F81D8AD906D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEF04B68687E80454401629 /* User.m */; };
+		5AEF0BAB6EB89E532EA1A225 /* user_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 5AEF08D79B3873F200EE7EAE /* user_info.json */; };
 		5D560060E3B345958F56627F /* libPods-InstagramSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA291DA7D0D4574B074229E /* libPods-InstagramSDK.a */; };
 		8306FADF19042EC0001F3687 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8306FADE19042EC0001F3687 /* Foundation.framework */; };
 		8306FAE419042EC0001F3687 /* InstagramSDK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8306FAE319042EC0001F3687 /* InstagramSDK.h */; };
@@ -19,7 +21,6 @@
 		8306FAFB19042EC0001F3687 /* InstagramSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8306FAFA19042EC0001F3687 /* InstagramSDKTests.m */; };
 		832E29361907B22E0029BFA1 /* UsersAPISpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E29351907B22E0029BFA1 /* UsersAPISpec.m */; };
 		832E29391907B24B0029BFA1 /* UserAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E29381907B24B0029BFA1 /* UserAPI.m */; };
-		832E293A1907B29F0029BFA1 /* UserAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E29381907B24B0029BFA1 /* UserAPI.m */; };
 		8D16EAC5EE9B4AAD9DD871F4 /* libPods-InstagramSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7ED4329A2D4C029F99A9DE /* libPods-InstagramSDKTests.a */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,9 @@
 
 /* Begin PBXFileReference section */
 		3E7ED4329A2D4C029F99A9DE /* libPods-InstagramSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-InstagramSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AEF04B68687E80454401629 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		5AEF06881B23FED541A9D92F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		5AEF08D79B3873F200EE7EAE /* user_info.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = user_info.json; sourceTree = "<group>"; };
 		5BA291DA7D0D4574B074229E /* libPods-InstagramSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-InstagramSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8306FADB19042EC0001F3687 /* libInstagramSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInstagramSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8306FADE19042EC0001F3687 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -133,6 +137,8 @@
 				8306FAE119042EC0001F3687 /* Supporting Files */,
 				832E29371907B24B0029BFA1 /* UserAPI.h */,
 				832E29381907B24B0029BFA1 /* UserAPI.m */,
+				5AEF04B68687E80454401629 /* User.m */,
+				5AEF06881B23FED541A9D92F /* User.h */,
 			);
 			path = InstagramSDK;
 			sourceTree = "<group>";
@@ -151,6 +157,7 @@
 				8306FAFA19042EC0001F3687 /* InstagramSDKTests.m */,
 				8306FAF519042EC0001F3687 /* Supporting Files */,
 				832E29351907B22E0029BFA1 /* UsersAPISpec.m */,
+				5AEF08D79B3873F200EE7EAE /* user_info.json */,
 			);
 			path = InstagramSDKTests;
 			sourceTree = "<group>";
@@ -239,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8306FAF919042EC0001F3687 /* InfoPlist.strings in Resources */,
+				5AEF0BAB6EB89E532EA1A225 /* user_info.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +322,7 @@
 			files = (
 				8306FAE619042EC0001F3687 /* InstagramSDK.m in Sources */,
 				832E29391907B24B0029BFA1 /* UserAPI.m in Sources */,
+				5AEF062418C72F81D8AD906D /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,7 +331,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				832E29361907B22E0029BFA1 /* UsersAPISpec.m in Sources */,
-				832E293A1907B29F0029BFA1 /* UserAPI.m in Sources */,
 				8306FAFB19042EC0001F3687 /* InstagramSDKTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

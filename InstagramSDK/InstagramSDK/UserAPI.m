@@ -7,7 +7,11 @@
 //
 
 #import "UserAPI.h"
+#import "User.h"
 
 @implementation UserAPI
 
+- (void)getById:(NSString *)string withBlock:(void (^)(User *))block {
+
+}
 @end

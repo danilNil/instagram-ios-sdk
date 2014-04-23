@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Danil. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@class User;
 
 @interface UserAPI : NSObject
+
+- (void)getById:(NSString *)string withBlock:(void (^)(User *))block;
 
 @end
