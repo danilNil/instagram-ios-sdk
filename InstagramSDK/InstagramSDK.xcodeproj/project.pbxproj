@@ -17,6 +17,9 @@
 		8306FAF319042EC0001F3687 /* libInstagramSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8306FADB19042EC0001F3687 /* libInstagramSDK.a */; };
 		8306FAF919042EC0001F3687 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8306FAF719042EC0001F3687 /* InfoPlist.strings */; };
 		8306FAFB19042EC0001F3687 /* InstagramSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8306FAFA19042EC0001F3687 /* InstagramSDKTests.m */; };
+		832E29361907B22E0029BFA1 /* UsersAPISpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E29351907B22E0029BFA1 /* UsersAPISpec.m */; };
+		832E29391907B24B0029BFA1 /* UserAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E29381907B24B0029BFA1 /* UserAPI.m */; };
+		832E293A1907B29F0029BFA1 /* UserAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E29381907B24B0029BFA1 /* UserAPI.m */; };
 		8D16EAC5EE9B4AAD9DD871F4 /* libPods-InstagramSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7ED4329A2D4C029F99A9DE /* libPods-InstagramSDKTests.a */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +60,9 @@
 		8306FAF619042EC0001F3687 /* InstagramSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InstagramSDKTests-Info.plist"; sourceTree = "<group>"; };
 		8306FAF819042EC0001F3687 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8306FAFA19042EC0001F3687 /* InstagramSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstagramSDKTests.m; sourceTree = "<group>"; };
+		832E29351907B22E0029BFA1 /* UsersAPISpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersAPISpec.m; sourceTree = "<group>"; };
+		832E29371907B24B0029BFA1 /* UserAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAPI.h; sourceTree = "<group>"; };
+		832E29381907B24B0029BFA1 /* UserAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAPI.m; sourceTree = "<group>"; };
 		B7F38E69E2B243CE9C28309A /* Pods-InstagramSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDK.xcconfig"; path = "Pods/Pods-InstagramSDK.xcconfig"; sourceTree = "<group>"; };
 		F8A93E3FB20247C0A1733E79 /* Pods-InstagramSDKTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDKTests.xcconfig"; path = "Pods/Pods-InstagramSDKTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +131,8 @@
 				8306FAE319042EC0001F3687 /* InstagramSDK.h */,
 				8306FAE519042EC0001F3687 /* InstagramSDK.m */,
 				8306FAE119042EC0001F3687 /* Supporting Files */,
+				832E29371907B24B0029BFA1 /* UserAPI.h */,
+				832E29381907B24B0029BFA1 /* UserAPI.m */,
 			);
 			path = InstagramSDK;
 			sourceTree = "<group>";
@@ -142,6 +150,7 @@
 			children = (
 				8306FAFA19042EC0001F3687 /* InstagramSDKTests.m */,
 				8306FAF519042EC0001F3687 /* Supporting Files */,
+				832E29351907B22E0029BFA1 /* UsersAPISpec.m */,
 			);
 			path = InstagramSDKTests;
 			sourceTree = "<group>";
@@ -216,8 +225,6 @@
 			mainGroup = 8306FAD219042EC0001F3687;
 			productRefGroup = 8306FADC19042EC0001F3687 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				8306FADA19042EC0001F3687 /* InstagramSDK */,
@@ -306,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8306FAE619042EC0001F3687 /* InstagramSDK.m in Sources */,
+				832E29391907B24B0029BFA1 /* UserAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +321,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				832E29361907B22E0029BFA1 /* UsersAPISpec.m in Sources */,
+				832E293A1907B29F0029BFA1 /* UserAPI.m in Sources */,
 				8306FAFB19042EC0001F3687 /* InstagramSDKTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,6 +500,7 @@
 				8306FB0019042EC0001F3687 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8306FB0119042EC0001F3687 /* Build configuration list for PBXNativeTarget "InstagramSDKTests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +509,7 @@
 				8306FB0319042EC0001F3687 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
