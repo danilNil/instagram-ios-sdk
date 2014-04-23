@@ -7,9 +7,11 @@
 //
 
 @class User;
+@class AFHTTPRequestOperationManager;
 
 @interface UserAPI : NSObject
-
-- (void)getById:(NSString *)string withBlock:(void (^)(User *))block;
+@property (nonatomic, readonly) Injected NSString* token;
+@property (nonatomic, readonly) Injected AFHTTPRequestOperationManager* client;
+- (void)getById:(NSString *)string withBlock:(void (^)(User * user, NSError *error))block;
 
 @end

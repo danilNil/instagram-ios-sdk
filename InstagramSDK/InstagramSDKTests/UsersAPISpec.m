@@ -41,7 +41,7 @@ describe(@"UsersAPI", ^{
         stubRequest(@"GET", @"https://api.instagram.com/v1/users/+/?access_token=+")
                 .andReturnRawResponse([NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"user_info" ofType:@"json"] ]);
         __block User* u;
-        [sut getById:@"userId" withBlock:^ (User* user){
+        [sut getById:@"userId" withBlock:^ (User* user, NSError * error){
             u = user;
         }];
 
