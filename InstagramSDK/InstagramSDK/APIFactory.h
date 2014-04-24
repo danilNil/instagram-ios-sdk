@@ -10,4 +10,5 @@
 
 @interface APIFactory : TyphoonAssembly
 - (id)userAPI;
+- (id)userFeedAPI;
 @end

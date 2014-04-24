@@ -8,6 +8,7 @@
 
 #import "APIFactory.h"
 #import "UserAPI.h"
+#import "UserFeedAPI.h"
 #import "CoreComponentsFactory.h"
 
 @interface APIFactory ()
@@ -20,6 +21,13 @@
 
 - (id)userAPI{
     return [TyphoonDefinition withClass:[UserAPI class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectProperty:@selector(client) with:self.components.apiService];
+        [definition injectProperty:@selector(token) with:@"test_token"];
+    }];
+}
+
+- (id)userFeedAPI{
+    return [TyphoonDefinition withClass:[UserFeedAPI class] configuration:^(TyphoonDefinition *definition) {
         [definition injectProperty:@selector(client) with:self.components.apiService];
         [definition injectProperty:@selector(token) with:@"test_token"];
     }];

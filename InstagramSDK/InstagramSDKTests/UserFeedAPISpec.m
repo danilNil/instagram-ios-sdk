@@ -7,17 +7,16 @@
 //
 
 #import <Kiwi/Kiwi.h>
-#import "UserAPI.h"
 #import "LSNocilla.h"
-#import "User.h"
 #import "APIFactory.h"
 #import "Typhoon.h"
 #import "CoreComponentsFactory.h"
+#import "UserFeedAPI.h"
 
-SPEC_BEGIN(UsersAPISpec)
+SPEC_BEGIN(UserFeedAPISpec)
 
-describe(@"UsersAPI", ^{
-    __block UserAPI *sut; //‘system under test’
+describe(@"UserFeedAPI", ^{
+    __block UserFeedAPI *sut; //‘system under test’
     __block APIFactory* factory;
 
     beforeAll(^{
@@ -31,7 +30,7 @@ describe(@"UsersAPI", ^{
     beforeEach(^{
         
         factory = [TyphoonBlockComponentFactory factoryWithAssemblies:@[[CoreComponentsFactory assembly], [APIFactory assembly]]];
-        sut = [factory userAPI];
+        sut = [factory userFeedAPI];
         NSLog(@"!!! we created sut: %@", sut);
     });
     
@@ -43,20 +42,20 @@ describe(@"UsersAPI", ^{
 
     });
     
-    it(@"Get user by id", ^{
-        NSData* data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"user_info" ofType:@"json"] ];
-    
-        stubRequest(@"GET", @"https://api\.instagram\.com/v1/users/(.*?)/?access_token=(.*?)".regex)
+
+    it(@"Get user feed", ^{
+        NSData* data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"user_feed" ofType:@"json"] ];
+
+        stubRequest(@"GET", @"https://api\.instagram\.com/v1/users/self/feed?access_token=(.*?)".regex)
                 .andReturnRawResponse(data).withHeaders(@{@"Content-Type": @"application/json"});
-        __block User* u;
-        NSString* userId = @"userId";
+        __block UserFeed * uf;
+
         [[sut shouldNot] beNil];
-        [sut getById:userId withBlock:^ (User* user, NSError * error){
-            u = user;
+        [sut getMyFeedWithBlock:^ (UserFeed * userFeed, NSError * error){
+            uf = userFeed;
         }];
 
-        [[expectFutureValue(u) shouldEventually] beNonNil];
-
+        [[expectFutureValue(uf) shouldEventually] beNonNil];
     });
 
 });

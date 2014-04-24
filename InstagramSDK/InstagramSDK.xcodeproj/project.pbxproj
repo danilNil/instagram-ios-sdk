@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5AEF0097418EA267904AF401 /* UserFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEF0D1A0C351B658389CAB2 /* UserFeed.m */; };
+		5AEF015C5825A5C178468CB6 /* UserFeedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEF03472EE84A33D418ACC9 /* UserFeedAPI.m */; };
 		5AEF062418C72F81D8AD906D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEF04B68687E80454401629 /* User.m */; };
+		5AEF06D3CA4B551C3549DCC8 /* UserFeedAPISpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEF0715EF0843F592D3F20D /* UserFeedAPISpec.m */; };
+		5AEF0780DFFC5F575B32A15F /* user_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 5AEF05411D7E184CE1064BE1 /* user_feed.json */; };
 		5AEF0BAB6EB89E532EA1A225 /* user_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 5AEF08D79B3873F200EE7EAE /* user_info.json */; };
 		5D560060E3B345958F56627F /* libPods-InstagramSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA291DA7D0D4574B074229E /* libPods-InstagramSDK.a */; };
 		8306FADF19042EC0001F3687 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8306FADE19042EC0001F3687 /* Foundation.framework */; };
@@ -51,9 +55,15 @@
 
 /* Begin PBXFileReference section */
 		3E7ED4329A2D4C029F99A9DE /* libPods-InstagramSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-InstagramSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AEF019D54BA4F1346C69860 /* UserFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFeed.h; sourceTree = "<group>"; };
+		5AEF03472EE84A33D418ACC9 /* UserFeedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeedAPI.m; sourceTree = "<group>"; };
 		5AEF04B68687E80454401629 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		5AEF05411D7E184CE1064BE1 /* user_feed.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = user_feed.json; sourceTree = "<group>"; };
+		5AEF0555DD94D9D1A7039DDA /* UserFeedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFeedAPI.h; sourceTree = "<group>"; };
 		5AEF06881B23FED541A9D92F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		5AEF0715EF0843F592D3F20D /* UserFeedAPISpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeedAPISpec.m; sourceTree = "<group>"; };
 		5AEF08D79B3873F200EE7EAE /* user_info.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = user_info.json; sourceTree = "<group>"; };
+		5AEF0D1A0C351B658389CAB2 /* UserFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeed.m; sourceTree = "<group>"; };
 		5BA291DA7D0D4574B074229E /* libPods-InstagramSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-InstagramSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8306FADB19042EC0001F3687 /* libInstagramSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInstagramSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8306FADE19042EC0001F3687 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -149,6 +159,10 @@
 				83B3860C1908D7AB00A4808D /* CoreComponentsFactory.m */,
 				83B3860E1908DD1D00A4808D /* APIFactory.h */,
 				83B3860F1908DD1D00A4808D /* APIFactory.m */,
+				5AEF03472EE84A33D418ACC9 /* UserFeedAPI.m */,
+				5AEF0555DD94D9D1A7039DDA /* UserFeedAPI.h */,
+				5AEF0D1A0C351B658389CAB2 /* UserFeed.m */,
+				5AEF019D54BA4F1346C69860 /* UserFeed.h */,
 			);
 			path = InstagramSDK;
 			sourceTree = "<group>";
@@ -168,6 +182,8 @@
 				8306FAF519042EC0001F3687 /* Supporting Files */,
 				832E29351907B22E0029BFA1 /* UsersAPISpec.m */,
 				5AEF08D79B3873F200EE7EAE /* user_info.json */,
+				5AEF05411D7E184CE1064BE1 /* user_feed.json */,
+				5AEF0715EF0843F592D3F20D /* UserFeedAPISpec.m */,
 			);
 			path = InstagramSDKTests;
 			sourceTree = "<group>";
@@ -257,6 +273,7 @@
 			files = (
 				8306FAF919042EC0001F3687 /* InfoPlist.strings in Resources */,
 				5AEF0BAB6EB89E532EA1A225 /* user_info.json in Resources */,
+				5AEF0780DFFC5F575B32A15F /* user_feed.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +352,8 @@
 				83B3860D1908D7AB00A4808D /* CoreComponentsFactory.m in Sources */,
 				832E29391907B24B0029BFA1 /* UserAPI.m in Sources */,
 				5AEF062418C72F81D8AD906D /* User.m in Sources */,
+				5AEF015C5825A5C178468CB6 /* UserFeedAPI.m in Sources */,
+				5AEF0097418EA267904AF401 /* UserFeed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +363,7 @@
 			files = (
 				832E29361907B22E0029BFA1 /* UsersAPISpec.m in Sources */,
 				8306FAFB19042EC0001F3687 /* InstagramSDKTests.m in Sources */,
+				5AEF06D3CA4B551C3549DCC8 /* UserFeedAPISpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

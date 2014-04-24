@@ -9,6 +9,7 @@
 #import "UserAPI.h"
 #import "User.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "UserFeedAPI.h"
 
 @implementation UserAPI
 
@@ -36,4 +37,5 @@
 - (NSString *)pathWithId:(NSString*)userId {
     return [NSString stringWithFormat:@"users/%@", userId];
 }
+
 @end
