@@ -46,7 +46,7 @@ describe(@"UserFeedAPI", ^{
     it(@"Get user feed", ^{
         NSData* data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"user_feed" ofType:@"json"] ];
 
-        stubRequest(@"GET", @"https://api\.instagram\.com/v1/users/self/feed?access_token=(.*?)".regex)
+        stubRequest(@"GET", @"^https://api\.instagram\.com/v1/users/self/feed(.*)".regex)
                 .andReturnRawResponse(data).withHeaders(@{@"Content-Type": @"application/json"});
         __block UserFeed * uf;
 
