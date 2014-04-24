@@ -21,6 +21,8 @@
 		8306FAFB19042EC0001F3687 /* InstagramSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8306FAFA19042EC0001F3687 /* InstagramSDKTests.m */; };
 		832E29361907B22E0029BFA1 /* UsersAPISpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E29351907B22E0029BFA1 /* UsersAPISpec.m */; };
 		832E29391907B24B0029BFA1 /* UserAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E29381907B24B0029BFA1 /* UserAPI.m */; };
+		83B3860D1908D7AB00A4808D /* CoreComponentsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3860C1908D7AB00A4808D /* CoreComponentsFactory.m */; };
+		83B386101908DD1D00A4808D /* APIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3860F1908DD1D00A4808D /* APIFactory.m */; };
 		8D16EAC5EE9B4AAD9DD871F4 /* libPods-InstagramSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7ED4329A2D4C029F99A9DE /* libPods-InstagramSDKTests.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +69,10 @@
 		832E29351907B22E0029BFA1 /* UsersAPISpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersAPISpec.m; sourceTree = "<group>"; };
 		832E29371907B24B0029BFA1 /* UserAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAPI.h; sourceTree = "<group>"; };
 		832E29381907B24B0029BFA1 /* UserAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAPI.m; sourceTree = "<group>"; };
+		83B3860B1908D7AB00A4808D /* CoreComponentsFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreComponentsFactory.h; sourceTree = "<group>"; };
+		83B3860C1908D7AB00A4808D /* CoreComponentsFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreComponentsFactory.m; sourceTree = "<group>"; };
+		83B3860E1908DD1D00A4808D /* APIFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIFactory.h; sourceTree = "<group>"; };
+		83B3860F1908DD1D00A4808D /* APIFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIFactory.m; sourceTree = "<group>"; };
 		B7F38E69E2B243CE9C28309A /* Pods-InstagramSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDK.xcconfig"; path = "Pods/Pods-InstagramSDK.xcconfig"; sourceTree = "<group>"; };
 		F8A93E3FB20247C0A1733E79 /* Pods-InstagramSDKTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDKTests.xcconfig"; path = "Pods/Pods-InstagramSDKTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +145,10 @@
 				832E29381907B24B0029BFA1 /* UserAPI.m */,
 				5AEF04B68687E80454401629 /* User.m */,
 				5AEF06881B23FED541A9D92F /* User.h */,
+				83B3860B1908D7AB00A4808D /* CoreComponentsFactory.h */,
+				83B3860C1908D7AB00A4808D /* CoreComponentsFactory.m */,
+				83B3860E1908DD1D00A4808D /* APIFactory.h */,
+				83B3860F1908DD1D00A4808D /* APIFactory.m */,
 			);
 			path = InstagramSDK;
 			sourceTree = "<group>";
@@ -320,7 +330,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B386101908DD1D00A4808D /* APIFactory.m in Sources */,
 				8306FAE619042EC0001F3687 /* InstagramSDK.m in Sources */,
+				83B3860D1908D7AB00A4808D /* CoreComponentsFactory.m in Sources */,
 				832E29391907B24B0029BFA1 /* UserAPI.m in Sources */,
 				5AEF062418C72F81D8AD906D /* User.m in Sources */,
 			);

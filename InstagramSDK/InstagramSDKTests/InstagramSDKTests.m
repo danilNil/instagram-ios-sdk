@@ -14,7 +14,6 @@ SPEC_BEGIN(InstagramSDKSpec)
         describe(@"InstagramSDK", ^{
 
             __block InstagramSDK *sut; //‘system under test’
-
             beforeEach(^{
 
                 sut = [[InstagramSDK alloc] init];

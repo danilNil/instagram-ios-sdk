@@ -4,10 +4,11 @@ platform :ios, '6.0'
 
 target "InstagramSDK" do
 	pod 'Typhoon', :head
-  pod "AFNetworking", "~> 2.0"
+    pod "AFNetworking", "~> 2.0"
 end
 
 target :InstagramSDKTests, :exclusive => true do
-  pod 'Kiwi/XCTest'
-  pod 'Nocilla'
+    pod 'Kiwi/XCTest'
+    pod 'Nocilla'
+    pod 'Typhoon', :head
 end

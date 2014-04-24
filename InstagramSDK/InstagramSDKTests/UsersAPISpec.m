@@ -10,11 +10,15 @@
 #import "UserAPI.h"
 #import "LSNocilla.h"
 #import "User.h"
+#import "APIFactory.h"
+#import "Typhoon.h"
+#import "CoreComponentsFactory.h"
 
 SPEC_BEGIN(UsersAPISpec)
 
 describe(@"UsersAPI", ^{
     __block UserAPI *sut; //‘system under test’
+    __block APIFactory* factory;
 
     beforeAll(^{
         [[LSNocilla sharedInstance] start];
@@ -26,13 +30,14 @@ describe(@"UsersAPI", ^{
 
     beforeEach(^{
         
-        sut = [[UserAPI alloc] init];
-        
+        factory = [TyphoonBlockComponentFactory factoryWithAssemblies:@[[CoreComponentsFactory assembly], [APIFactory assembly]]];
+        sut = [factory userAPI];
     });
     
     afterEach(^{
         
         sut = nil;
+        factory = nil;
         [[LSNocilla sharedInstance] clearStubs];
 
     });
@@ -41,6 +46,8 @@ describe(@"UsersAPI", ^{
         stubRequest(@"GET", @"https://api.instagram.com/v1/users/+/?access_token=+")
                 .andReturnRawResponse([NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"user_info" ofType:@"json"] ]);
         __block User* u;
+        [[sut.client shouldNot] beNil];
+        [[sut.token shouldNot] beNil];
         [sut getById:@"userId" withBlock:^ (User* user, NSError * error){
             u = user;
         }];
