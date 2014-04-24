@@ -21,7 +21,7 @@
 - (id)userAPI{
     return [TyphoonDefinition withClass:[UserAPI class] configuration:^(TyphoonDefinition *definition) {
         [definition injectProperty:@selector(client) with:self.components.apiService];
-        [definition injectProperty:@selector(token) with:self.components.token];
+        [definition injectProperty:@selector(token) with:@"test_token"];
     }];
 }
 

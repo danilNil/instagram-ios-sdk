@@ -11,6 +11,5 @@
 @interface CoreComponentsFactory : TyphoonAssembly
 
 - (id)apiService;
-- (id)token;
 
 @end

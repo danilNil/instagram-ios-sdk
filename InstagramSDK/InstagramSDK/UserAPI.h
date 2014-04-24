@@ -10,8 +10,8 @@
 @class AFHTTPRequestOperationManager;
 
 @interface UserAPI : NSObject
-@property (nonatomic, readonly) Injected NSString* token;
-@property (nonatomic, readonly) Injected AFHTTPRequestOperationManager* client;
+@property (nonatomic, strong) Injected NSString* token;
+@property (nonatomic, strong) Injected AFHTTPRequestOperationManager* client;
 - (void)getById:(NSString *)string withBlock:(void (^)(User * user, NSError *error))block;
 
 @end

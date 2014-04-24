@@ -13,13 +13,9 @@
 - (id)apiService
 {
     return [TyphoonDefinition withClass:[AFHTTPRequestOperationManager class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectProperty:@selector(baseURL) with:@"https://api.instagram.com/v1"];
+        [definition injectProperty:@selector(baseURL) with:[NSURL URLWithString:@"https://api.instagram.com/v1/"]];
         definition.scope = TyphoonScopeSingleton;
     }];
 }
 
-- (id)token
-{
-    return @"test_token";
-}
 @end

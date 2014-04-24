@@ -12,8 +12,8 @@
 
 @implementation UserAPI
 
-- (void)getById:(NSString *)string withBlock:(void (^)(User * user, NSError *error))block {
-    [self.client GET:[self path] parameters:[self parameters] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void)getById:(NSString *)userId withBlock:(void (^)(User * user, NSError *error))block {
+    [self.client GET:[self pathWithId:userId] parameters:[self parameters] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         User* user = [self objectFromJson:responseObject];
         block(user, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -22,14 +22,18 @@
 }
 
 - (User *)objectFromJson:(id)object {
-    return nil;
+    NSDictionary* dict = object;
+    NSDictionary* userDict = [dict objectForKey:@"data"];
+    User* user = [User new];
+    user.name = [userDict objectForKey:@"username"];
+    return user;
 }
 
 - (id)parameters {
-    return nil;
+    return @{@"access_token" : self.token};
 }
 
-- (NSString *)path {
-    return nil;
+- (NSString *)pathWithId:(NSString*)userId {
+    return [NSString stringWithFormat:@"users/%@", userId];
 }
 @end

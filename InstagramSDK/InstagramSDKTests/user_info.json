@@ -1,14 +1,18 @@
 {
-    "data": {
-        "id": "1574083",
-        "username": "snoopdogg",
-        "full_name": "Snoop Dogg",
-        "profile_picture": "http://distillery.s3.amazonaws.com/profiles/profile_1574083_75sq_1295469061.jpg",
-        "bio": "This is my bio",
-        "website": "http://snoopdogg.com",
-        "counts": {
-            "media": 1320,
-            "follows": 420,
-            "followed_by": 3410
-        }
-    }
+  "meta":  {
+    "code": 200
+  },
+  "data":  {
+    "username": "bobbayk_rw",
+    "bio": "⚡️San Diego⚡️                           born & raised 🇺🇸\nFriend level: Black belt.",
+    "website": "",
+    "profile_picture": "http://images.ak.instagram.com/profiles/profile_123123_75sq_1393277644.jpg",
+    "full_name": "Bobby Knowles",
+    "counts":  {
+      "media": 1832,
+      "followed_by": 1208,
+      "follows": 858
+    },
+    "id": "123123"
+  }
+}

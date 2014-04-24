@@ -32,6 +32,7 @@ describe(@"UsersAPI", ^{
         
         factory = [TyphoonBlockComponentFactory factoryWithAssemblies:@[[CoreComponentsFactory assembly], [APIFactory assembly]]];
         sut = [factory userAPI];
+        NSLog(@"!!! we created sut: %@", sut);
     });
     
     afterEach(^{
@@ -43,12 +44,15 @@ describe(@"UsersAPI", ^{
     });
     
     it(@"Get user by id", ^{
-        stubRequest(@"GET", @"https://api.instagram.com/v1/users/+/?access_token=+")
-                .andReturnRawResponse([NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"user_info" ofType:@"json"] ]);
+    NSData* data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"user_info" ofType:@"json"] ];
+    
+        stubRequest(@"GET", @"https://api\.instagram\.com/v1/users/(.*?)/?access_token=(.*?)".regex)
+                .andReturnRawResponse(data).withHeaders(@{@"Content-Type": @"application/json"});
         __block User* u;
-        [[sut.client shouldNot] beNil];
-        [[sut.token shouldNot] beNil];
-        [sut getById:@"userId" withBlock:^ (User* user, NSError * error){
+        NSString* userId = @"userId";
+        [[sut shouldNot] beNil];
+        //[[sut.token shouldNot] beNil];
+        [sut getById:userId withBlock:^ (User* user, NSError * error){
             u = user;
         }];
 
