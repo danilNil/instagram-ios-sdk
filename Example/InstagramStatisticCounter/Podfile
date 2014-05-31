@@ -1,0 +1,3 @@
+target "InstagramStatisticCounter" do
+  pod 'Typhoon', :head
+end
