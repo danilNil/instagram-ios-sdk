@@ -1,29 +1,27 @@
+////////////////////////////////////////////////////////////////////////////////
 //
-//  TyphoonInjection.m
-//  A-Typhoon
+//  TYPHOON FRAMEWORK
+//  Copyright 2013, Jasper Blues & Contributors
+//  All Rights Reserved.
 //
-//  Created by Aleksey Garbarev on 12.03.14.
-//  Copyright (c) 2014 Jasper Blues. All rights reserved.
+//  NOTICE: The authors permit you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //
+////////////////////////////////////////////////////////////////////////////////
+
 
 #import "TyphoonInjections.h"
 
 #import "TyphoonInjectionByType.h"
 #import "TyphoonInjectionByReference.h"
-#import "TyphoonInjectionByFactoryReference.h"
 #import "TyphoonInjectionByObjectInstance.h"
 #import "TyphoonInjectionByObjectFromString.h"
 #import "TyphoonInjectionByCollection.h"
-#import "TyphoonInjectionByComponentFactory.h"
 #import "TyphoonInjectionByRuntimeArgument.h"
-#import "TyphoonInjectionByObjectInstance.h"
-#import "TyphoonInjectionByReference.h"
-#import "TyphoonInjectionByType.h"
 #import "TyphoonInjectionByDictionary.h"
 
 #import "TyphoonObjectWithCustomInjection.h"
-#import "TyphoonPropertyInjection.h"
-#import "TyphoonParameterInjection.h"
+#import "TyphoonInjectionByConfig.h"
 
 id TyphoonInjectionMatchedByType(void) {
     return [[TyphoonInjectionByType alloc] init];
@@ -53,6 +51,11 @@ id TyphoonInjectionWithReference(NSString *reference) {
     return [[TyphoonInjectionByReference alloc] initWithReference:reference args:nil];
 }
 
+id TyphoonInjectionWithConfigKey(NSString *configKey)
+{
+    return [[TyphoonInjectionByConfig alloc] initWithConfigKey:configKey];
+}
+
 id TyphoonMakeInjectionFromObjectIfNeeded(id objectOrInjection) {
     id injection = nil;
 
@@ -73,6 +76,4 @@ BOOL IsTyphoonInjection(id objectOrInjection) {
     return [objectOrInjection conformsToProtocol:@protocol(TyphoonPropertyInjection)] ||
         [objectOrInjection conformsToProtocol:@protocol(TyphoonParameterInjection)];
 }
-
-
 
