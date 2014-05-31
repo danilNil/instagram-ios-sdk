@@ -10,5 +10,4 @@ end
 target :InstagramSDKTests, :exclusive => true do
     pod 'Kiwi/XCTest'
     pod 'Nocilla'
-    pod 'Typhoon', :head
 end

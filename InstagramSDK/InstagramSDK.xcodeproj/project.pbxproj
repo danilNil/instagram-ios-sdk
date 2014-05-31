@@ -19,7 +19,6 @@
 		8306FAE619042EC0001F3687 /* InstagramSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 8306FAE519042EC0001F3687 /* InstagramSDK.m */; };
 		8306FAED19042EC0001F3687 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8306FAEC19042EC0001F3687 /* XCTest.framework */; };
 		8306FAEE19042EC0001F3687 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8306FADE19042EC0001F3687 /* Foundation.framework */; };
-		8306FAF019042EC0001F3687 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8306FAEF19042EC0001F3687 /* UIKit.framework */; };
 		8306FAF319042EC0001F3687 /* libInstagramSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8306FADB19042EC0001F3687 /* libInstagramSDK.a */; };
 		8306FAF919042EC0001F3687 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8306FAF719042EC0001F3687 /* InfoPlist.strings */; };
 		8306FAFB19042EC0001F3687 /* InstagramSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8306FAFA19042EC0001F3687 /* InstagramSDKTests.m */; };
@@ -27,6 +26,8 @@
 		832E29391907B24B0029BFA1 /* UserAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 832E29381907B24B0029BFA1 /* UserAPI.m */; };
 		83B3860D1908D7AB00A4808D /* CoreComponentsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3860C1908D7AB00A4808D /* CoreComponentsFactory.m */; };
 		83B386101908DD1D00A4808D /* APIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3860F1908DD1D00A4808D /* APIFactory.m */; };
+		83EFD7621939A8D5002012E3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EFD7611939A8D5002012E3 /* UIKit.framework */; };
+		83EFD7651939AA92002012E3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EFD7611939A8D5002012E3 /* UIKit.framework */; };
 		8D16EAC5EE9B4AAD9DD871F4 /* libPods-InstagramSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7ED4329A2D4C029F99A9DE /* libPods-InstagramSDKTests.a */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +73,6 @@
 		8306FAE519042EC0001F3687 /* InstagramSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstagramSDK.m; sourceTree = "<group>"; };
 		8306FAEB19042EC0001F3687 /* InstagramSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstagramSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8306FAEC19042EC0001F3687 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		8306FAEF19042EC0001F3687 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		8306FAF619042EC0001F3687 /* InstagramSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InstagramSDKTests-Info.plist"; sourceTree = "<group>"; };
 		8306FAF819042EC0001F3687 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8306FAFA19042EC0001F3687 /* InstagramSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstagramSDKTests.m; sourceTree = "<group>"; };
@@ -83,6 +83,7 @@
 		83B3860C1908D7AB00A4808D /* CoreComponentsFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreComponentsFactory.m; sourceTree = "<group>"; };
 		83B3860E1908DD1D00A4808D /* APIFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIFactory.h; sourceTree = "<group>"; };
 		83B3860F1908DD1D00A4808D /* APIFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIFactory.m; sourceTree = "<group>"; };
+		83EFD7611939A8D5002012E3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B7F38E69E2B243CE9C28309A /* Pods-InstagramSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDK.xcconfig"; path = "Pods/Pods-InstagramSDK.xcconfig"; sourceTree = "<group>"; };
 		F8A93E3FB20247C0A1733E79 /* Pods-InstagramSDKTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDKTests.xcconfig"; path = "Pods/Pods-InstagramSDKTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,6 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8306FADF19042EC0001F3687 /* Foundation.framework in Frameworks */,
+				83EFD7651939AA92002012E3 /* UIKit.framework in Frameworks */,
 				5D560060E3B345958F56627F /* libPods-InstagramSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,10 +104,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8306FAED19042EC0001F3687 /* XCTest.framework in Frameworks */,
-				8306FAF019042EC0001F3687 /* UIKit.framework in Frameworks */,
 				8306FAEE19042EC0001F3687 /* Foundation.framework in Frameworks */,
 				8306FAF319042EC0001F3687 /* libInstagramSDK.a in Frameworks */,
 				8D16EAC5EE9B4AAD9DD871F4 /* libPods-InstagramSDKTests.a in Frameworks */,
+				83EFD7621939A8D5002012E3 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,9 +138,9 @@
 		8306FADD19042EC0001F3687 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83EFD7611939A8D5002012E3 /* UIKit.framework */,
 				8306FADE19042EC0001F3687 /* Foundation.framework */,
 				8306FAEC19042EC0001F3687 /* XCTest.framework */,
-				8306FAEF19042EC0001F3687 /* UIKit.framework */,
 				3E7ED4329A2D4C029F99A9DE /* libPods-InstagramSDKTests.a */,
 				5BA291DA7D0D4574B074229E /* libPods-InstagramSDK.a */,
 			);
@@ -491,6 +493,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InstagramSDK/InstagramSDK-Prefix.pch";
@@ -513,6 +516,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InstagramSDK/InstagramSDK-Prefix.pch";
