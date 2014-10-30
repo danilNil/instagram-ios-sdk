@@ -25,6 +25,7 @@
 #import "TyphoonObjectWithCustomInjection.h"
 #import "TyphoonInjectionByComponentFactory.h"
 #import "TyphoonSelector.h"
+#import "TyphoonDefinition+Infrastructure.h"
 
 static NSMutableSet *reservedSelectorsAsStrings;
 
@@ -42,14 +43,12 @@ static NSMutableSet *reservedSelectorsAsStrings;
 }
 
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Class Methods
 
 + (TyphoonAssembly *)assembly
 {
-    TyphoonAssembly *assembly = [[self alloc] init];
-    [assembly resolveCollaboratingAssemblies];
-    return assembly;
+    return [[self alloc] init];
 }
 
 + (instancetype)defaultAssembly
@@ -110,7 +109,7 @@ static NSMutableSet *reservedSelectorsAsStrings;
     return [_definitionBuilder builtDefinitionForKey:key args:args];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Initialization & Destruction
 
 - (id)init
@@ -119,16 +118,12 @@ static NSMutableSet *reservedSelectorsAsStrings;
     if (self) {
         _definitionBuilder = [[TyphoonAssemblyDefinitionBuilder alloc] initWithAssembly:self];
         _adviser = [[TyphoonAssemblyAdviser alloc] initWithAssembly:self];
+        [self resolveCollaboratingAssemblies];
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [TyphoonAssemblyAdviser undoAdviseMethods:self];
-}
-
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - <TyphoonObjectWithCustomInjection>
 
 - (id <TyphoonPropertyInjection, TyphoonParameterInjection>)typhoonCustomObjectInjection
@@ -136,7 +131,7 @@ static NSMutableSet *reservedSelectorsAsStrings;
     return [[TyphoonInjectionByComponentFactory alloc] init];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Interface Methods
 
 - (void)resolveCollaboratingAssemblies
@@ -159,7 +154,7 @@ static NSMutableSet *reservedSelectorsAsStrings;
     return (id)self;
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Private Methods
 
 - (NSArray *)definitions
@@ -179,7 +174,7 @@ static NSMutableSet *reservedSelectorsAsStrings;
 
 - (void)prepareForUse
 {
-    self.definitionSelectors = [self.adviser enumerateDefinitionSelectors];
+    self.definitionSelectors = [self.adviser definitionSelectors];
     [self.adviser adviseAssembly];
 }
 

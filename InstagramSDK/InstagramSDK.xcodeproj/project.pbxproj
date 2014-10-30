@@ -84,8 +84,10 @@
 		83B3860E1908DD1D00A4808D /* APIFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIFactory.h; sourceTree = "<group>"; };
 		83B3860F1908DD1D00A4808D /* APIFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIFactory.m; sourceTree = "<group>"; };
 		83EFD7611939A8D5002012E3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		B7F38E69E2B243CE9C28309A /* Pods-InstagramSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDK.xcconfig"; path = "Pods/Pods-InstagramSDK.xcconfig"; sourceTree = "<group>"; };
-		F8A93E3FB20247C0A1733E79 /* Pods-InstagramSDKTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDKTests.xcconfig"; path = "Pods/Pods-InstagramSDKTests.xcconfig"; sourceTree = "<group>"; };
+		9A7FF6AE9FE2B6628FAED102 /* Pods-InstagramSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramSDK/Pods-InstagramSDK.release.xcconfig"; sourceTree = "<group>"; };
+		C00E9D5F60A2DFFF5C5C8394 /* Pods-InstagramSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramSDKTests/Pods-InstagramSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CB7CC47200AD729F52BA8950 /* Pods-InstagramSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramSDKTests/Pods-InstagramSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		E978AF7ED267F59542ED6E23 /* Pods-InstagramSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramSDK/Pods-InstagramSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61DEAE7DD004286DAF06E8E5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E978AF7ED267F59542ED6E23 /* Pods-InstagramSDK.debug.xcconfig */,
+				9A7FF6AE9FE2B6628FAED102 /* Pods-InstagramSDK.release.xcconfig */,
+				C00E9D5F60A2DFFF5C5C8394 /* Pods-InstagramSDKTests.debug.xcconfig */,
+				CB7CC47200AD729F52BA8950 /* Pods-InstagramSDKTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8306FAD219042EC0001F3687 = {
 			isa = PBXGroup;
 			children = (
@@ -121,8 +134,7 @@
 				8306FAF419042EC0001F3687 /* InstagramSDKTests */,
 				8306FADD19042EC0001F3687 /* Frameworks */,
 				8306FADC19042EC0001F3687 /* Products */,
-				F8A93E3FB20247C0A1733E79 /* Pods-InstagramSDKTests.xcconfig */,
-				B7F38E69E2B243CE9C28309A /* Pods-InstagramSDK.xcconfig */,
+				61DEAE7DD004286DAF06E8E5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -294,7 +306,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-InstagramSDKTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InstagramSDKTests/Pods-InstagramSDKTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		527AA5F05B744AA894A3970A /* Check Pods Manifest.lock */ = {
@@ -339,7 +351,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-InstagramSDK-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InstagramSDK/Pods-InstagramSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -461,12 +473,12 @@
 		};
 		8306FAFF19042EC0001F3687 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7F38E69E2B243CE9C28309A /* Pods-InstagramSDK.xcconfig */;
+			baseConfigurationReference = E978AF7ED267F59542ED6E23 /* Pods-InstagramSDK.debug.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/InstagramSDK.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InstagramSDK/InstagramSDK-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -474,12 +486,12 @@
 		};
 		8306FB0019042EC0001F3687 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7F38E69E2B243CE9C28309A /* Pods-InstagramSDK.xcconfig */;
+			baseConfigurationReference = 9A7FF6AE9FE2B6628FAED102 /* Pods-InstagramSDK.release.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/InstagramSDK.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InstagramSDK/InstagramSDK-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -487,7 +499,7 @@
 		};
 		8306FB0219042EC0001F3687 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8A93E3FB20247C0A1733E79 /* Pods-InstagramSDKTests.xcconfig */;
+			baseConfigurationReference = C00E9D5F60A2DFFF5C5C8394 /* Pods-InstagramSDKTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -510,7 +522,7 @@
 		};
 		8306FB0319042EC0001F3687 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8A93E3FB20247C0A1733E79 /* Pods-InstagramSDKTests.xcconfig */;
+			baseConfigurationReference = CB7CC47200AD729F52BA8950 /* Pods-InstagramSDKTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

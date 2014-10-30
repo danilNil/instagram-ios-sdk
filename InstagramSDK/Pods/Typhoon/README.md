@@ -1,13 +1,16 @@
 # Typhoon! (www.typhoonframework.org) 
 
-Elegant, powerful dependency injection for Objective-C. Lightweight (just 2500 lines of code), yet full-featured and super-easy to use. 
+Powerful dependency injection for Cocoa and CocoaTouch. Lightweight, yet full-featured and super-easy to use. 
 
 ## Familiar with Dependency Injection?
 
-* Read the <a href="https://github.com/typhoon-framework/Typhoon/wiki/Quick-Start">Quick Start</a>, <a href="https://github.com/typhoon-framework/Typhoon/wiki/Types-of-Injections">User Guide</a> or <a href="http://www.typhoonframework.org/docs/latest/api/modules.html">API Docs</a>  ***Updated for version 2.0!!!!***
-* <a href="https://github.com/typhoon-framework/Typhoon-example">Try the sample application</a> 
-* <a href="https://github.com/typhoon-framework/Typhoon#design-goals--features">Check the feature list</a>.
-otherwise. . . 
+*Typhoon is a DI library that makes good use of the runtime's (ObjC or Swift) late binding nature in order to perform method interception and forwarding. This makes for a very compelling <a href="https://github.com/typhoon-framework/Typhoon#design-goals--features">feature list.</a>*
+
+* In a rush? Here's a <a href="https://github.com/typhoon-framework/Typhoon/wiki/Swift-Quick-Start">Swift Quick Start</a> and an <a href="https://github.com/typhoon-framework/Typhoon/wiki/Quick-Start">Objective-C Quick Start</a>.
+* Read the <a href="https://github.com/typhoon-framework/Typhoon/wiki/Types-of-Injections">User Guide</a> or <a href="http://www.typhoonframework.org/docs/latest/api/modules.html">API Docs</a>.  
+* Try the <a href="https://github.com/typhoon-framework/Typhoon-Swift-Example">Swift Sample Application</a> (in progress) or the <a href="https://github.com/typhoon-framework/Typhoon-example">Objective-C Sample Application</a>.
+
+. . . otherwise . . . 
 
 ### What is Dependency Injection? 
 
@@ -25,16 +28,16 @@ ___Without dependency injection, you might have a View Controller like this___:
 
 ```objective-c
 
--(id) init 
+- (id)init 
 {
- self = [super init];
- if (self) 
- {
-  //The class using some collaborating class builds its own assistant.
-  //it might be one of several classes using the weatherClient. 
-  _weatherClient = [[GoogleWeatherClientImpl alloc] initWithParameters:xyz];
- }
- return self;
+    self = [super init];
+    if (self) 
+    {
+        //The class using some collaborating class builds its own assistant.
+        //it might be one of several classes using the weatherClient. 
+        _weatherClient = [[GoogleWeatherClientImpl alloc] initWithParameters:xyz];
+    }
+    return self;
 }
 
 ```
@@ -66,14 +69,14 @@ ___And now, it simply becomes___:
 
 ```objective-c
 
--(id) initWithWeatherClient:(id<WeatherClient>)weatherClient
+- (id)initWithWeatherClient:(id<WeatherClient>)weatherClient
 {
- self = [super init];
- if (self) 
- {
-     _weatherClient = weatherClient;
- }
- return self;
+    self = [super init];
+    if (self) 
+    {
+        _weatherClient = weatherClient;
+    }
+    return self;
 }
 
 ```
@@ -133,8 +136,9 @@ good compromise between integration testing and pure unit testing. (Biggest test
 
 * Supports ***injection of view controllers*** and ***storyboard integration.*** 
 
-* Supports both ***initializer*** and ***property injection***. In the case of the latter, it has customizable call-backs to 
-ensure that the class is in the required state before and after properties are set. 
+* Supports both ***initializer***, ***property*** and ***method injection***. For the latter two, it has customizable call-backs to ensure that the class is in the required state before and after injection. 
+
+* Supports a mixture of static dependencies along with <a href="https://github.com/typhoon-framework/Typhoon/wiki/Types-of-Injections#injection-with-run-time-arguments">run-time arguments</a> to create factories on the fly. This greatly reduces the amount of boiler-plate code that you would normally write. 
 
 * Excellent ***support for circular dependencies.***
 
@@ -190,14 +194,24 @@ This looks like a bug | Please raise a <a href="https://github.com/typhoon-frame
 I'll take all the help I can get | While Typhoon is free, open-source and volunteer based, if you're interested in professional consultation/support we do maintain a list of experts and companies that can provide services. Get in touch with us, and we'll do our best to connect you. 
 
 
+# Apps Using Typhoon
+
+Here's a few apps built with Typhoon:
+
+
+* Mod Productions' ACO Virtual <a href="http://vimeo.com/75451558">iPad controller</a> and <a href="https://itunes.apple.com/au/app/aco-virtual/id623225640?mt=8">companion AR app.</a> (Awarded ***AppStore Best New Apps***). Here's some <a href="https://www.flickr.com/photos/michela/sets/72157633386492756/">more pictures</a> on Flickr.  
+* <a href="http://itunes.com/apps/GonnaGo">GonnaGo</a> - a social travel app. 
+* <a href="http://appstore.com/alpify">Alpify</a> - don't go skiing or snow boarding without it!
+* ***Your app here!!!***
 
 # Core Team
 
-* <a href="https://github.com/jasperblues">Jasper Blues</a> (Founder / Project Lead) - <a href="mailto:jasper@appsquick.ly?Subject=Typhoon">jasper@appsquick.ly</a>  
+* <a href="http://ph.linkedin.com/pub/jasper-blues/8/163/778/">Jasper Blues</a> (Founder / Project Lead) - <a href="mailto:jasper@appsquick.ly?Subject=Typhoon">jasper@appsquick.ly</a>  
+* <a href="https://github.com/alexgarbarev">Aleksey Garbarev</a>, Principal Developer
 * <a href="https://github.com/rhgills">Robert Gilliam</a> - <a href="mailto:robert@robertgilliam.org?Subject=Typhoon">robert@robertgilliam.org</a>
 * <a href="https://github.com/drodriguez">Daniel Rodríguez Troitiño</a> 
 * <a href="https://github.com/eriksundin">Erik Sundin</a> 
-* <a href="https://github.com/alexgarbarev">Aleksey Garbarev</a>
+
          
 ### With contributions from: 
 
@@ -213,17 +227,6 @@ I'll take all the help I can get | While Typhoon is free, open-source and volunt
 *(If you've sent a pull request and didn't get a mention. . . sorry! Please let us know and we'll correct it).*
 
 ****
-
-
-# Apps Using Typhoon
-
-Here's a few apps built with Typhoon:
-
-* Mod Productions' ACO Virtual <a href="http://vimeo.com/75451558">iPad controller</a> and <a href="https://itunes.apple.com/au/app/aco-virtual/id623225640?mt=8">companion AR app.</a> (Awarded ***AppStore Best New Apps***). 
-* <a href="http://itunes.com/apps/GonnaGo">GonnaGo</a> - a social travel app. 
-* <a href="http://appstore.com/alpify">Alpify</a> - don't go skiing or snow boarding without it!
-* Many others. . . ***Your app here!!!***
-
 
 
 # LICENSE

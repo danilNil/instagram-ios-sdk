@@ -28,7 +28,7 @@ TYPHOON_LINK_CATEGORY(TyphoonInitializer_InstanceBuilder)
 
 @implementation TyphoonMethod (InstanceBuilder)
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Interface Methods
 
 - (void)replaceInjection:(id<TyphoonParameterInjection>)injection with:(id<TyphoonParameterInjection>)injectionToReplace
@@ -41,22 +41,6 @@ TYPHOON_LINK_CATEGORY(TyphoonInitializer_InstanceBuilder)
 - (NSArray *)injectedParameters
 {
     return [_injectedParameters copy];
-}
-
-- (NSArray *)parametersInjectedByValue
-{
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        return [evaluatedObject isKindOfClass:[TyphoonInjectionByObjectFromString class]];
-    }];
-    return [_injectedParameters filteredArrayUsingPredicate:predicate];
-}
-
-- (NSArray *)parametersInjectedByRuntimeArgument
-{
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        return [evaluatedObject isKindOfClass:[TyphoonInjectionByRuntimeArgument class]];
-    }];
-    return [_injectedParameters filteredArrayUsingPredicate:predicate];
 }
 
 - (void)createInvocationOnClass:(Class)clazz withContext:(TyphoonInjectionContext *)context completion:(void(^)(NSInvocation *invocation))result
@@ -82,12 +66,19 @@ TYPHOON_LINK_CATEGORY(TyphoonInitializer_InstanceBuilder)
 
 - (void)checkParametersCount
 {
-    if ([TyphoonIntrospectionUtils numberOfArgumentsInSelector:_selector] != [_injectedParameters count]) {
-        [NSException raise:NSInternalInconsistencyException format:@"Method '%@' has %d parameters, but %d was injected", NSStringFromSelector(_selector), (int)[_parameterNames count], (int)[_injectedParameters count]];
+    NSUInteger numberOfArgumentsInSelector = [TyphoonIntrospectionUtils numberOfArgumentsInSelector:_selector];
+    if (numberOfArgumentsInSelector != [_injectedParameters count]) {
+        NSString *suggestion = @"";
+        if ([_injectedParameters count] - numberOfArgumentsInSelector == 1 && ![NSStringFromSelector(_selector) hasSuffix:@":"]) {
+            suggestion = [NSString stringWithFormat:@"Do you mean '%@:'?", NSStringFromSelector(_selector)];
+        } else if (numberOfArgumentsInSelector > [_injectedParameters count]) {
+            suggestion = @"Inject with 'nil' if necessary";
+        }
+        [NSException raise:NSInternalInconsistencyException format:@"Method '%@' has %d parameters, but %d was injected. %@", NSStringFromSelector(_selector), (int)numberOfArgumentsInSelector, (int)[_injectedParameters count], suggestion];
     }
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Private Methods
 
 - (BOOL)isClassMethodOnClass:(Class)_class

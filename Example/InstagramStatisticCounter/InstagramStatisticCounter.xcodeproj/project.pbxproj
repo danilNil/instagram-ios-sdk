@@ -77,8 +77,9 @@
 		83EFD7991939ABDB002012E3 /* InstagramStatisticCounterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InstagramStatisticCounterTests-Info.plist"; sourceTree = "<group>"; };
 		83EFD79B1939ABDB002012E3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		83EFD79D1939ABDB002012E3 /* InstagramStatisticCounterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstagramStatisticCounterTests.m; sourceTree = "<group>"; };
-		DC96ED240E9E429E9104AB7F /* Pods-InstagramStatisticCounter.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramStatisticCounter.xcconfig"; path = "Pods/Pods-InstagramStatisticCounter.xcconfig"; sourceTree = "<group>"; };
+		B5683180CAF0388D12AD37FA /* Pods-InstagramStatisticCounter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramStatisticCounter.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramStatisticCounter/Pods-InstagramStatisticCounter.release.xcconfig"; sourceTree = "<group>"; };
 		E0B5664690A145D1AC174524 /* libPods-InstagramStatisticCounter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-InstagramStatisticCounter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E90759915CC6E4C890823451 /* Pods-InstagramStatisticCounter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramStatisticCounter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramStatisticCounter/Pods-InstagramStatisticCounter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +124,8 @@
 				83EFD7971939ABDB002012E3 /* InstagramStatisticCounterTests */,
 				83EFD7711939ABDA002012E3 /* Frameworks */,
 				83EFD7701939ABDA002012E3 /* Products */,
-				DC96ED240E9E429E9104AB7F /* Pods-InstagramStatisticCounter.xcconfig */,
 				5AEF0258471B5C15DD8CCA69 /* InstagramSDK.xcodeproj */,
+				F301B7067A2156AA245A8D06 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,6 +191,15 @@
 				83EFD79A1939ABDB002012E3 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F301B7067A2156AA245A8D06 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E90759915CC6E4C890823451 /* Pods-InstagramStatisticCounter.debug.xcconfig */,
+				B5683180CAF0388D12AD37FA /* Pods-InstagramStatisticCounter.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,7 +348,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-InstagramStatisticCounter-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InstagramStatisticCounter/Pods-InstagramStatisticCounter-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -477,13 +487,18 @@
 		};
 		83EFD7A21939ABDB002012E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC96ED240E9E429E9104AB7F /* Pods-InstagramStatisticCounter.xcconfig */;
+			baseConfigurationReference = E90759915CC6E4C890823451 /* Pods-InstagramStatisticCounter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InstagramStatisticCounter/InstagramStatisticCounter-Prefix.pch";
 				INFOPLIST_FILE = "InstagramStatisticCounter/InstagramStatisticCounter-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-InstagramStatisticCounter-Typhoon\"",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../InstagramSDK\"/**";
 				WRAPPER_EXTENSION = app;
@@ -492,13 +507,18 @@
 		};
 		83EFD7A31939ABDB002012E3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC96ED240E9E429E9104AB7F /* Pods-InstagramStatisticCounter.xcconfig */;
+			baseConfigurationReference = B5683180CAF0388D12AD37FA /* Pods-InstagramStatisticCounter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InstagramStatisticCounter/InstagramStatisticCounter-Prefix.pch";
 				INFOPLIST_FILE = "InstagramStatisticCounter/InstagramStatisticCounter-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-InstagramStatisticCounter-Typhoon\"",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../InstagramSDK\"/**";
 				WRAPPER_EXTENSION = app;

@@ -14,6 +14,7 @@
 
 TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
 
+#import "TyphoonDefinition+Infrastructure.h"
 #import "TyphoonComponentFactory+InstanceBuilder.h"
 #import "TyphoonDefinition.h"
 #import "TyphoonDefinition+InstanceBuilder.h"
@@ -30,6 +31,7 @@ TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
 #import "TyphoonInjectionContext.h"
 #import "TyphoonPropertyInjection.h"
 #import "NSObject+TyphoonIntrospectionUtils.h"
+#import "TyphoonFactoryAutoInjectionPostProcessor.h"
 
 @implementation TyphoonComponentFactory (InstanceBuilder)
 
@@ -60,7 +62,7 @@ TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
     id instance = nil;
 
     if (definition.factory) {
-        id factoryComponent = [self componentForKey:definition.factory.key];
+        id factoryComponent = [self componentForKey:[(TyphoonDefinition *)definition.factory key]];
         instance = [self resultOfInvocationInitializer:definition.initializer on:factoryComponent withArgs:args];
     }
     else {
@@ -74,8 +76,8 @@ TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
 {
     id result;
 
-    BOOL isClass = class_isMetaClass(object_getClass(instanceOrClass));
-    Class instanceClass = isClass ? instanceOrClass : [instanceOrClass class];
+    BOOL isClass = IsClass(instanceOrClass);
+    Class instanceClass = isClass ? (Class) instanceOrClass : [instanceOrClass class];
 
     NSInvocation *invocation = [self invocationToInit:instanceClass with:initializer args:args];
 
@@ -132,8 +134,9 @@ TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
     return [self buildInstanceWithDefinition:definition args:args];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Injection process
+//-------------------------------------------------------------------------------------------
 
 - (void)doInjectionEventsOn:(id)instance withDefinition:(TyphoonDefinition *)definition args:(TyphoonRuntimeArguments *)args
 {
@@ -158,7 +161,7 @@ TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
         [instance typhoonWillInject];
     }
 
-    if ([instance respondsToSelector:definition.beforeInjections]) {
+    if (definition && [instance respondsToSelector:definition.beforeInjections]) {
         void(*method)(id, SEL) = (void (*)(id, SEL)) [instance methodForSelector:definition.beforeInjections];
         method(instance, definition.beforeInjections);
     }
@@ -170,14 +173,15 @@ TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
         [instance typhoonDidInject];
     }
 
-    if ([instance respondsToSelector:definition.afterInjections]) {
+    if (definition && [instance respondsToSelector:definition.afterInjections]) {
         void(*method)(id, SEL) = (void (*)(id, SEL)) [instance methodForSelector:definition.afterInjections];
         method(instance, definition.afterInjections);
     }
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Methods Injection
+//-------------------------------------------------------------------------------------------
 
 - (void)doMethodInjection:(TyphoonMethod *)method onInstance:(id)instance args:(TyphoonRuntimeArguments *)args
 {
@@ -192,8 +196,9 @@ TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
     }];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Property Injection
+//-------------------------------------------------------------------------------------------
 
 - (void)doPropertyInjectionOn:(id)instance property:(id <TyphoonPropertyInjection>)property args:(TyphoonRuntimeArguments *)args
 {
@@ -209,8 +214,9 @@ TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
     }];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Circular dependencies support
+//-------------------------------------------------------------------------------------------
 
 - (void)resolveCircularDependency:(NSString *)key args:(TyphoonRuntimeArguments *)args
                     resolvedBlock:(void (^)(BOOL isCircular))resolvedBlock
@@ -226,55 +232,90 @@ TYPHOON_LINK_CATEGORY(TyphoonComponentFactory_InstanceBuilder)
     }
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Private Methods
+//-------------------------------------------------------------------------------------------
 
 - (TyphoonDefinition *)definitionForType:(id)classOrProtocol
 {
-    NSArray *candidates = [self allDefinitionsForType:classOrProtocol];
+    return [self definitionForType:classOrProtocol orNil:NO includeSubclasses:YES];
+}
+
+- (TyphoonDefinition *)definitionForType:(id)classOrProtocol orNil:(BOOL)returnNilIfNotFound includeSubclasses:(BOOL)includeSubclasses
+{
+    NSArray *candidates = [self allDefinitionsForType:classOrProtocol includeSubclasses:includeSubclasses];
 
     if ([candidates count] == 0) {
 
-        SEL autoInjectedProperties = sel_registerName("typhoonAutoInjectedProperties");
-        if (class_isMetaClass(object_getClass(classOrProtocol)) && [classOrProtocol respondsToSelector:autoInjectedProperties]) {
-            LogTrace(@"Class %@ wants auto-wiring. . . registering.", NSStringFromClass(classOrProtocol));
-            [self registerDefinition:[TyphoonDefinition withClass:classOrProtocol]];
-            return [self definitionForType:classOrProtocol];
+        //Auto registering definition with AutoInjection
+        if (IsClass(classOrProtocol)) {
+            TyphoonDefinition *autoDefinition = [self autoInjectionDefinitionForClass:classOrProtocol];
+            if (autoDefinition) {
+                [self registerDefinition:autoDefinition];
+                return [self definitionForType:classOrProtocol orNil:returnNilIfNotFound includeSubclasses:includeSubclasses];
+            }
         }
-        [NSException raise:NSInvalidArgumentException format:@"No components defined which satisify type: '%@'",
-                                                             TyphoonTypeStringFor(classOrProtocol)];
+
+        if (returnNilIfNotFound) {
+            return nil;
+        } else {
+            [NSException raise:NSInvalidArgumentException format:@"No components defined which satisify type: '%@'", TyphoonTypeStringFor(classOrProtocol)];
+        }
     }
     if ([candidates count] > 1) {
-        [NSException raise:NSInvalidArgumentException format:@"More than one component is defined satisfying type: '%@'",
-                                                             TyphoonTypeStringFor(classOrProtocol)];
+        [NSException raise:NSInvalidArgumentException format:@"More than one component is defined satisfying type: '%@' : %@",
+                                                             TyphoonTypeStringFor(classOrProtocol), candidates];
     }
-    return [candidates objectAtIndex:0];
+    return [candidates firstObject];
 }
-
 
 - (NSArray *)allDefinitionsForType:(id)classOrProtocol
 {
+    return [self allDefinitionsForType:classOrProtocol includeSubclasses:YES];
+}
 
-    NSMutableArray *results = [[NSMutableArray alloc] init];
-    BOOL isClass = class_isMetaClass(object_getClass(classOrProtocol));
-    BOOL isProtocol = object_getClass(classOrProtocol) == object_getClass(@protocol(NSObject));
-    if (!isClass && !isProtocol) {
+- (NSArray *)allDefinitionsForType:(id)classOrProtocol includeSubclasses:(BOOL)includeSubclasses
+{
+    if (!IsClass(classOrProtocol) && !IsProtocol(classOrProtocol)) {
         [NSException raise:NSInternalInconsistencyException format:@"%@ is not class or protocol", classOrProtocol];
     }
 
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+
     for (TyphoonDefinition *definition in _registry) {
-        if (isClass) {
-            if (definition.type == classOrProtocol || [definition.type isSubclassOfClass:classOrProtocol]) {
-                [results addObject:definition];
-            }
-        }
-        else {
-            if ([definition.type conformsToProtocol:classOrProtocol]) {
-                [results addObject:definition];
-            }
+        if ([definition matchesAutoInjectionWithType:classOrProtocol includeSubclasses:includeSubclasses]) {
+            [results addObject:definition];
         }
     }
-    return [results copy];
+    return results;
+}
+
+- (TyphoonDefinition *)autoInjectionDefinitionForClass:(Class)clazz
+{
+    TyphoonDefinition *result = nil;
+
+    TyphoonFactoryAutoInjectionPostProcessor *postProcessor = [self autoInjectionPostProcessor];
+    NSArray *properties = [postProcessor autoInjectedPropertiesForClass:clazz];
+    if (properties) {
+        result = [TyphoonDefinition withClass:clazz];
+        for (id propertyInjection in properties) {
+            [result addInjectedPropertyIfNotExists:propertyInjection];
+        }
+    }
+
+    return result;
+}
+
+- (TyphoonFactoryAutoInjectionPostProcessor *)autoInjectionPostProcessor
+{
+    TyphoonFactoryAutoInjectionPostProcessor *postProcessor = nil;
+    for (id<TyphoonComponentFactoryPostProcessor> item in _factoryPostProcessors) {
+        if ([item isMemberOfClass:[TyphoonFactoryAutoInjectionPostProcessor class]]) {
+            postProcessor = item;
+            break;
+        }
+    }
+    return postProcessor;
 }
 
 @end

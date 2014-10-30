@@ -15,7 +15,8 @@
 /**
 * @ingroup Definition
 *
-* Represents an initializer for a component.
+* Represents an method to inject for a component.
+* Used in initializer and method injections
 *
 * ##Initializer style injection has the following advantages:
 *
@@ -34,25 +35,19 @@
 @interface TyphoonMethod : NSObject <NSCopying>
 {
     NSMutableArray *_injectedParameters;
-    NSArray *_parameterNames;
     SEL _selector;
 }
 
 /**
 * The selector used to initialize the component.
 */
-@property(nonatomic) SEL selector;
-
-@property(nonatomic, readonly) NSArray *parameterNames;
+@property(nonatomic, readonly) SEL selector;
 
 - (id)initWithSelector:(SEL)selector;
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - inject
 
 - (void)injectParameterWith:(id)injection;
-
-- (void)injectParameter:(NSString *)parameterName with:(id)injection;
-
 
 @end

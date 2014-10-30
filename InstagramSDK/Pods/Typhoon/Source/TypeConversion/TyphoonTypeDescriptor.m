@@ -13,6 +13,7 @@
 
 #import <objc/runtime.h>
 #import "TyphoonTypeDescriptor.h"
+#import "TyphoonIntrospectionUtils.h"
 
 @implementation NSDictionary (TyphoonPrimitiveType)
 
@@ -48,11 +49,12 @@
 
 @end
 
+
 @implementation TyphoonTypeDescriptor {
     NSString *_typeCode;
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Class Methods
 
 + (TyphoonTypeDescriptor *)descriptorWithEncodedType:(const char *)encodedType
@@ -67,13 +69,13 @@
 
 + (TyphoonTypeDescriptor *)descriptorWithClassOrProtocol:(id)classOrProtocol
 {
-    if (class_isMetaClass(object_getClass(classOrProtocol))) {
+    if (IsClass(classOrProtocol)) {
         return [self descriptorWithTypeCode:[NSString stringWithFormat:@"T@%@", NSStringFromClass(classOrProtocol)]];
     }
     return [self descriptorWithTypeCode:[NSString stringWithFormat:@"T@<%@>", NSStringFromProtocol(classOrProtocol)]];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Initialization & Destruction
 
 - (id)initWithTypeCode:(NSString *)typeCode
@@ -95,10 +97,10 @@
                 NSString *class = components[0];
 
                 _protocol = NSProtocolFromString(protocol);
-                _typeBeingDescribed = NSClassFromString(class);
+                _typeBeingDescribed = TyphoonClassFromString(class);
             }
             else {
-                _typeBeingDescribed = NSClassFromString(typeCode);
+                _typeBeingDescribed = TyphoonClassFromString(typeCode);
             }
         }
         else {
@@ -111,7 +113,7 @@
     return self;
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Interface Methods
 
 - (id)classOrProtocol
@@ -129,7 +131,7 @@
     return [_typeCode cStringUsingEncoding:NSUTF8StringEncoding];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Utility Methods
 
 - (NSString *)description
@@ -153,7 +155,7 @@
     }
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Private Methods
 
 - (void)parsePrimitiveType:(NSString *)typeCode

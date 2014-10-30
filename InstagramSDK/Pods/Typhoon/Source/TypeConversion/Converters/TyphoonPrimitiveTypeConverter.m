@@ -13,11 +13,12 @@
 #import "TyphoonPrimitiveTypeConverter.h"
 #import "TyphoonTypeDescriptor.h"
 #import "TyphoonStringUtils.h"
+#import "TyphoonIntrospectionUtils.h"
 
 @implementation TyphoonPrimitiveTypeConverter
 
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Interface Methods
 
 - (int)convertToInt:(NSString *)stringValue
@@ -87,7 +88,7 @@
 
 - (Class)convertToClass:(NSString *)stringValue
 {
-    return NSClassFromString(stringValue);
+    return TyphoonClassFromString(stringValue);
 }
 
 - (SEL)convertToSelector:(NSString *)stringValue
@@ -100,7 +101,7 @@
     return (void *)[stringValue integerValue];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 - (id)valueFromText:(NSString *)textValue withType:(TyphoonTypeDescriptor *)requiredType
 {
     id value = nil;

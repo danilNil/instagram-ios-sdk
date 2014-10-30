@@ -12,19 +12,25 @@
 
 id TyphoonInjectionMatchedByType(void);
 
+id TyphoonInjectionWithType(id classOrProtocol);
+
 id TyphoonInjectionWithObjectFromString(NSString *string);
 
 id TyphoonInjectionWithCollectionAndType(id collection, Class requiredClass);
 
 id TyphoonInjectionWithDictionaryAndType(id dictionary, Class requiredClass);
 
-id TyphoonInjectionWithRuntimeArgumentAtIndex(NSInteger argumentIndex);
+id TyphoonInjectionWithRuntimeArgumentAtIndex(NSUInteger argumentIndex);
+
+id TyphoonInjectionWithRuntimeArgumentAtIndexWrappedIntoBlock(NSUInteger argumentIndex);
 
 id TyphoonInjectionWithObject(id object);
 
 id TyphoonInjectionWithReference(NSString *reference);
 
 id TyphoonInjectionWithConfigKey(NSString *configKey);
+
+id TyphoonInjectionWithCurrentRuntimeArguments();
 
 id TyphoonMakeInjectionFromObjectIfNeeded(id objectOrInjection);
 

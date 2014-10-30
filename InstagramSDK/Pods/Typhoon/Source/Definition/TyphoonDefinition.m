@@ -25,6 +25,7 @@
 #import "TyphoonInjectionByReference.h"
 #import "TyphoonInjectionByFactoryReference.h"
 #import "TyphoonInjections.h"
+#import "TyphoonFactoryDefinition.h"
 
 static NSString *TyphoonScopeToString(TyphoonScope scope) {
     switch (scope) {
@@ -43,7 +44,10 @@ static NSString *TyphoonScopeToString(TyphoonScope scope) {
 
 
 @interface TyphoonDefinition () <TyphoonObjectWithCustomInjection>
-
+@property(nonatomic, strong) TyphoonMethod *initializer;
+@property(nonatomic, strong) NSString *key;
+@property(nonatomic, strong) TyphoonRuntimeArguments *currentRuntimeArguments;
+@property(nonatomic, getter = isInitializerGenerated) BOOL initializerGenerated;
 @end
 
 @implementation TyphoonDefinition
@@ -51,23 +55,27 @@ static NSString *TyphoonScopeToString(TyphoonScope scope) {
     BOOL _isScopeSetByUser;
 }
 
-/* ====================================================================================================================================== */
-#pragma mark - Class Methods
+@synthesize key = _key;
+@synthesize initializerGenerated = _initializerGenerated;
+@synthesize currentRuntimeArguments = _currentRuntimeArguments;
 
-+ (TyphoonDefinition *)withClass:(Class)clazz
+//-------------------------------------------------------------------------------------------
+#pragma MARK: - Class Methods
+//-------------------------------------------------------------------------------------------
+
++ (id)withClass:(Class)clazz
 {
-    return [[TyphoonDefinition alloc] initWithClass:clazz key:nil];
+    return [[self alloc] initWithClass:clazz key:nil];
 }
 
-+ (TyphoonDefinition *)withClass:(Class)clazz configuration:(TyphoonDefinitionBlock)injections
++ (id)withClass:(Class)clazz configuration:(TyphoonDefinitionBlock)injections
 {
-    return [TyphoonDefinition withClass:clazz key:nil injections:injections];
+    return [self withClass:clazz key:nil injections:injections];
 }
 
-+ (TyphoonDefinition *)withClass:(Class)clazz key:(NSString *)key injections:(TyphoonDefinitionBlock)properties
++ (id)withClass:(Class)clazz key:(NSString *)key injections:(TyphoonDefinitionBlock)properties
 {
-
-    TyphoonDefinition *definition = [[TyphoonDefinition alloc] initWithClass:clazz key:key];
+    TyphoonDefinition *definition = [[self alloc] initWithClass:clazz key:key];
 
     if (properties) {
         __weak TyphoonDefinition *weakDefinition = definition;
@@ -79,39 +87,32 @@ static NSString *TyphoonScopeToString(TyphoonScope scope) {
     return definition;
 }
 
-//Deprecated!
-+ (TyphoonDefinition *)withClass:(Class)clazz factory:(TyphoonDefinition *)_definition selector:(SEL)selector
++ (id)withFactory:(id)factory selector:(SEL)selector
 {
-    return [TyphoonDefinition withClass:clazz configuration:^(TyphoonDefinition *definition) {
-        [definition useInitializer:selector parameters:nil];
-        [definition setFactory:_definition];
-    }];
+    return [self withFactory:factory selector:selector parameters:nil];
 }
 
-+ (TyphoonDefinition *)withFactory:(TyphoonDefinition *)factory selector:(SEL)selector
++ (id)withFactory:(id)factory selector:(SEL)selector parameters:(void (^)(TyphoonMethod *method))parametersBlock
 {
-    return [TyphoonDefinition withFactory:factory selector:selector parameters:nil];
-}
-
-+ (TyphoonDefinition *)withFactory:(TyphoonDefinition *)factory selector:(SEL)selector parameters:(void (^)(TyphoonMethod *method))parametersBlock
-{
-    return [TyphoonDefinition withClass:[NSObject class] configuration:^(TyphoonDefinition *definition) {
+    return [TyphoonFactoryDefinition withConfiguration:^(TyphoonFactoryDefinition *definition) {
         [definition setFactory:factory];
         [definition setScope:TyphoonScopePrototype];
         [definition useInitializer:selector parameters:parametersBlock];
     }];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - TyphoonObjectWithCustomInjection
+//-------------------------------------------------------------------------------------------
 
 - (id)typhoonCustomObjectInjection
 {
     return [[TyphoonInjectionByReference alloc] initWithReference:self.key args:self.currentRuntimeArguments];
 }
 
-/* ====================================================================================================================================== */
-#pragma mark - Interface Methods
+//-------------------------------------------------------------------------------------------
+#pragma MARK: - Interface Methods
+//-------------------------------------------------------------------------------------------
 
 - (void)injectProperty:(SEL)selector
 {
@@ -150,13 +151,9 @@ static NSString *TyphoonScopeToString(TyphoonScope scope) {
     [self useInitializer:selector parameters:nil];
 }
 
-- (void)setInitializer:(TyphoonMethod *)initializer
-{
-    _initializer = initializer;
-}
-
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Making injections
+//-------------------------------------------------------------------------------------------
 
 - (id)property:(SEL)factorySelector
 {
@@ -168,8 +165,14 @@ static NSString *TyphoonScopeToString(TyphoonScope scope) {
     return [[TyphoonInjectionByFactoryReference alloc] initWithReference:self.key args:self.currentRuntimeArguments keyPath:keyPath];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Overridden Methods
+//-------------------------------------------------------------------------------------------
+
+- (void)setInitializer:(TyphoonMethod *)initializer
+{
+    _initializer = initializer;
+}
 
 - (TyphoonMethod *)initializer
 {
@@ -207,9 +210,26 @@ static NSString *TyphoonScopeToString(TyphoonScope scope) {
     [self validateScope];
 }
 
+- (void)setFactory:(id)factory
+{
+    _factory = factory;
+    if (![_factory isKindOfClass:[TyphoonDefinition class]]) {
+        [NSException raise:NSInvalidArgumentException format:@"Only TyphoonDefinition object can be set as factory. But in method '%@' object of class %@ set as factory", self.key, [factory class]];
+    }
+}
 
-/* ====================================================================================================================================== */
+- (void)setParent:(id)parent
+{
+    _parent = parent;
+    if (![_parent isKindOfClass:[TyphoonDefinition class]]) {
+        [NSException raise:NSInvalidArgumentException format:@"Only TyphoonDefinition object can be set as parent. But in method '%@' object of class %@ set as parent", self.key, [parent class]];
+    }
+}
+
+
+//-------------------------------------------------------------------------------------------
 #pragma mark - Utility Methods
+//-------------------------------------------------------------------------------------------
 
 - (NSString *)description
 {
@@ -224,19 +244,16 @@ static NSString *TyphoonScopeToString(TyphoonScope scope) {
     for (id <TyphoonPropertyInjection> property in _injectedProperties) {
         [copy addInjectedProperty:[property copyWithZone:NSDefaultMallocZone()]];
     }
+    copy->_injectedMethods = [_injectedMethods copy];
     return copy;
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Private Methods
+//-------------------------------------------------------------------------------------------
 
 - (void)validateScope
 {
-    if (self.lazy && self.scope != TyphoonScopeSingleton) {
-        [NSException raise:NSInvalidArgumentException
-            format:@"The lazy attribute is only applicable to singleton scoped definitions, but is set for definition: %@ ", self];
-    }
-
     if ((self.scope != TyphoonScopePrototype && self.scope != TyphoonScopeObjectGraph) && [self hasRuntimeArgumentInjections]) {
         [NSException raise:NSInvalidArgumentException
             format:@"The runtime arguments injections are only applicable to prototype and object-graph scoped definitions, but is set for definition: %@ ",

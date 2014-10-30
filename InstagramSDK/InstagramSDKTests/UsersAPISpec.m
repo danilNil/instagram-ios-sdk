@@ -44,6 +44,7 @@ describe(@"UsersAPI", ^{
     });
     
     it(@"Get user by id", ^{
+        NSLog(@"start");
         NSData* data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"user_info" ofType:@"json"] ];
     
         stubRequest(@"GET", @"https://api\.instagram\.com/v1/users/(.*?)/?access_token=(.*?)".regex)

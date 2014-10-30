@@ -13,6 +13,7 @@
 #import "TyphoonDefinition.h"
 #import "TyphoonComponentFactory.h"
 #import "TyphoonMethod.h"
+#import "TyphoonDefinition+Infrastructure.h"
 
 @implementation TyphoonViewControllerNibResolver
 
@@ -34,7 +35,7 @@
     return NSStringFromClass(viewControllerClass);
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Private Methods
 
 - (void)processViewControllerDefinition:(TyphoonDefinition *)definition

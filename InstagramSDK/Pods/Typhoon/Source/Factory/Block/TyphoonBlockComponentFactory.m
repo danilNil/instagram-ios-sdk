@@ -18,6 +18,7 @@
 #import "OCLogTemplate.h"
 #import "TyphoonAssembly+TyphoonAssemblyFriend.h"
 #import "TyphoonAssemblyPropertyInjectionPostProcessor.h"
+#import "TyphoonInjection.h"
 #import "TyphoonIntrospectionUtils.h"
 
 @interface TyphoonComponentFactory (Private)
@@ -40,7 +41,7 @@
     return self;
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Class Methods
 
 + (id)factoryWithAssembly:(TyphoonAssembly *)assembly
@@ -53,7 +54,7 @@
     return [[self alloc] initWithAssemblies:assemblies];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Initialization & Destruction
 
 - (id)initWithAssembly:(TyphoonAssembly *)assembly
@@ -101,7 +102,7 @@
 }
 
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Overridden Methods
 
 - (void)forwardInvocation:(NSInvocation *)invocation

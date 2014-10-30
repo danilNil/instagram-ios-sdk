@@ -21,6 +21,11 @@
 #import "TyphoonCircularDependencyTerminator.h"
 #import "TyphoonSelector.h"
 #import "TyphoonInjections.h"
+#import "TyphoonStringUtils.h"
+
+static id InjectionForArgumentType(const char *argumentType, NSUInteger index);
+static id objc_msgSend_InjectionArguments(id target, SEL selector, NSMethodSignature *signature);
+static void AssertArgumentType(id target, SEL selector, const char *argumentType, NSUInteger index);
 
 @implementation TyphoonAssemblyDefinitionBuilder
 {
@@ -162,9 +167,7 @@
     // call the user's assembly method to get it.
     SEL sel = [TyphoonAssemblySelectorAdviser advisedSELForKey:key];
 
-    // Using signature of original (not-adviced) method because they are same and signature
-    // of method created at runtime are wrong
-    NSMethodSignature *signature = [self.assembly methodSignatureForSelector:NSSelectorFromString(key)];
+    NSMethodSignature *signature = [self.assembly methodSignatureForSelector:sel];
 
     id cached =
         objc_msgSend_InjectionArguments(self.assembly, sel, signature); // the advisedSEL will call through to the original, unwrapped implementation because prepareForUse has been called, and all our definition methods have been swizzled.
@@ -173,7 +176,8 @@
     return cached;
 }
 
-static id objc_msgSend_InjectionArguments(id target, SEL selector, NSMethodSignature *signature) {
+static id objc_msgSend_InjectionArguments(id target, SEL selector, NSMethodSignature *signature)
+{
     if (signature.numberOfArguments > 2) {
         void *result;
         NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
@@ -181,7 +185,9 @@ static id objc_msgSend_InjectionArguments(id target, SEL selector, NSMethodSigna
         [invocation retainArguments];
         /* Fill invocation arguments with TyphoonInjectionWithRuntimeArgumentAtIndex injections */
         for (NSUInteger i = 0; i < signature.numberOfArguments - 2; i++) {
-            id injection = TyphoonInjectionWithRuntimeArgumentAtIndex(i);
+            const char *argumentType = [signature getArgumentTypeAtIndex:i + 2];
+            AssertArgumentType(target, selector, argumentType, i + 2);
+            id injection = InjectionForArgumentType(argumentType, i);
             [invocation setArgument:&injection atIndex:i + 2];
         }
         [invocation invokeWithTarget:target];
@@ -190,6 +196,29 @@ static id objc_msgSend_InjectionArguments(id target, SEL selector, NSMethodSigna
     }
     else {
         return objc_msgSend(target, selector);
+    }
+}
+
+static void AssertArgumentType(id target, SEL selector, const char *argumentType, NSUInteger index)
+{
+    BOOL isObject = CStringEquals(argumentType, "@");
+    BOOL isBlock = CStringEquals(argumentType, "@?");
+    BOOL isMetaClass = CStringEquals(argumentType, "#");
+
+    if (!isObject && !isBlock && !isMetaClass) {
+        [NSException raise:NSInvalidArgumentException format:@"The method '%@' in assembly '%@', contains a runtime argument of primitive type (BOOL, int, CGFloat, etc) at index %d. Runtime arguments can only be objects. Use wrappers like NSNumber or NSValue (they will be unwrapped into primitive value during injection) ", [TyphoonAssemblySelectorAdviser keyForAdvisedSEL:selector], [target class], (int)index-2];
+    }
+}
+
+static id InjectionForArgumentType(const char *argumentType, NSUInteger index)
+{
+    /** We are checking here, if argument type is block, then we have to wrap our injection into 'real' block,
+    *   otherwise, during assignment runtime will try to call Block_copy and it will crash if object is not 'real' block */
+
+    if (CStringEquals(argumentType, "@?")) {
+        return TyphoonInjectionWithRuntimeArgumentAtIndexWrappedIntoBlock(index);
+    } else {
+        return TyphoonInjectionWithRuntimeArgumentAtIndex(index);
     }
 }
 

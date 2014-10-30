@@ -1,3 +1,4 @@
+source 'https://github.com/CocoaPods/Specs.git'
 target "InstagramStatisticCounter" do
   pod 'Typhoon', :head
 end

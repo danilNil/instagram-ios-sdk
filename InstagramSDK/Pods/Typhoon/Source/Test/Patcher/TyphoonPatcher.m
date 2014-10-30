@@ -17,7 +17,7 @@
 
 @implementation TyphoonPatcher
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Initialization & Destruction
 
 - (id)init
@@ -29,7 +29,7 @@
     return self;
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Interface Methods
 
 - (void)patchDefinitionWithKey:(NSString *)key withObject:(TyphoonPatchObjectCreationBlock)objectCreationBlock
@@ -42,12 +42,17 @@
     [self patchDefinitionWithKey:definition.key withObject:objectCreationBlock];
 }
 
+- (void)patchDefinitionWithSelector:(SEL)definitionSelector withObject:(TyphoonPatchObjectCreationBlock)objectCreationBlock
+{
+    [self patchDefinitionWithKey:NSStringFromSelector(definitionSelector) withObject:objectCreationBlock];
+}
+
 - (void)detach
 {
     [self rollback];
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Protocol Methods
 
 - (void)postProcessComponentFactory:(TyphoonComponentFactory *)factory

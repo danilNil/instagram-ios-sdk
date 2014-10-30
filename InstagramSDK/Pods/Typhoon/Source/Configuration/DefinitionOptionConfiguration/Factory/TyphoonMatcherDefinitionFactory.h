@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TyphoonFactoryDefinition.h"
 
 @class TyphoonComponentFactory;
 @class TyphoonOptionMatcher;
@@ -13,10 +14,10 @@
 @property (nonatomic, strong) TyphoonOptionMatcher *matcher;
 @property (nonatomic, strong) TyphoonComponentFactory *factory;
 
-- (id)valueCreatedFromDefinitionMatchedOption:(id)optionValue;
+- (id)valueCreatedFromDefinitionMatchedOption:(id)optionValue args:(TyphoonRuntimeArguments *)args;
 
 @end
 
-/** Class to indicate, that definition has internal factory */
-@interface TyphoonInternalFactoryContainedDefinition : NSObject
+/** Class to indicate, that definition has internal factory to register */
+@interface TyphoonInfrastructureFactoryDefinition : TyphoonFactoryDefinition
 @end
