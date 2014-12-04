@@ -50,14 +50,14 @@ describe(@"UsersAPI", ^{
         stubRequest(@"GET", @"https://api\.instagram\.com/v1/users/(.*?)/?access_token=(.*?)".regex)
                 .andReturnRawResponse(data).withHeaders(@{@"Content-Type": @"application/json"});
         __block User* u;
-        NSString* userId = @"userId";
+        NSString* userId = @"123123";
         [[sut shouldNot] beNil];
         [sut getById:userId withBlock:^ (User* user, NSError * error){
             u = user;
+            [[u.uid should] equal:userId];
         }];
 
         [[expectFutureValue(u) shouldEventually] beNonNil];
-
     });
 
 });

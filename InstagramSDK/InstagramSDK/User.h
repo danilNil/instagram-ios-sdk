@@ -8,4 +8,6 @@
 
 @interface User : NSObject
 @property(nonatomic, strong) NSString* name;
+@property(nonatomic, strong) NSString* bio;
+@property(nonatomic, strong) NSString* uid;
 @end

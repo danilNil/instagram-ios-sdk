@@ -27,6 +27,7 @@
     NSDictionary* userDict = [dict objectForKey:@"data"];
     User* user = [User new];
     user.name = [userDict objectForKey:@"username"];
+    user.uid = [userDict objectForKey:@"id"];
     return user;
 }
 
